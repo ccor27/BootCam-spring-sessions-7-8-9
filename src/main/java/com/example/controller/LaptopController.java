@@ -30,7 +30,7 @@ public class LaptopController {
         if(laptopRepository.findAll().size()>0){
             return new ResponseEntity(laptopRepository.findAll(),HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity(laptopRepository.findAll(),HttpStatus.NO_CONTENT);
         }
     }
 
@@ -40,8 +40,10 @@ public class LaptopController {
     public ResponseEntity<Laptop> create(@RequestBody Laptop laptop){
 
         if (laptop.getId()==null){//not exist
+            System.out.println("guardo");
             return new ResponseEntity(laptopRepository.save(laptop),HttpStatus.CREATED);
         }else{
+            System.out.println("no guardo");
             return  new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }

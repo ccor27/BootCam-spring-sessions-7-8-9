@@ -31,12 +31,7 @@ class LaptopControllerTest {
     void setUp() {
         restTemplateBuilder = restTemplateBuilder.rootUri("http://localhost:"+port);
         testRestTemplate = new TestRestTemplate(restTemplateBuilder);
-    }
 
-    @Test
-    void findAll() {
-        ResponseEntity<Laptop[]> response = testRestTemplate.getForEntity("/api/laptops",Laptop[].class);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
     @Test
@@ -48,15 +43,27 @@ class LaptopControllerTest {
 
         String json = """
                 {
-                "brain":"cpu",
-                "processor":"intel,
-                "memory": 8
+                  "brand": "test",
+                  "memory": 3,
+                  "processor": "test"
                 }
-                
+                                
                 """;
         HttpEntity<String> request = new HttpEntity<>(json,headers);
         ResponseEntity<Laptop> response = testRestTemplate.exchange("/api/laptop/create",HttpMethod.POST,request,Laptop.class);
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
+    }
+
+    @Test
+    void findAll() {
+        ResponseEntity<Laptop[]> response = testRestTemplate.getForEntity("/api/laptops",Laptop[].class);
+
+        if(response.getBody()!=null){
+            assertEquals(HttpStatus.OK,response.getStatusCode());
+        }else{
+            assertEquals(HttpStatus.NO_CONTENT,response.getStatusCode());
+        }
+
     }
 
     @Test
@@ -78,5 +85,9 @@ class LaptopControllerTest {
         }else{
             assertEquals(HttpStatus.NOT_FOUND,HttpStatus.NOT_FOUND);
         }
+    }
+
+    public void begin(){
+
     }
 }

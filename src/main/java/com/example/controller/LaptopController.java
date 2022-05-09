@@ -4,6 +4,7 @@ package com.example.controller;
 import com.example.entity.Laptop;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,18 @@ public class LaptopController {
 
     private LaptopRepository laptopRepository;
 
+    @Value("${app.message}")
+    private String message;
+
     @Autowired
     public LaptopController(LaptopRepository laptopRepository) {
         this.laptopRepository = laptopRepository;
+    }
+
+    @ApiOperation("Method where any people have access")
+    @GetMapping("/")
+    public String open(){
+        return message;
     }
 
     //url: http://localhost:8080/api/laptops

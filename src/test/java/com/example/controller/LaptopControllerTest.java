@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.config.WebSecurityConfig;
 import com.example.entity.Laptop;
 import com.example.repository.LaptopRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,8 +31,7 @@ class LaptopControllerTest {
     @BeforeEach
     void setUp() {
         restTemplateBuilder = restTemplateBuilder.rootUri("http://localhost:"+port);
-        testRestTemplate = new TestRestTemplate(restTemplateBuilder);
-
+        testRestTemplate = new TestRestTemplate(restTemplateBuilder).withBasicAuth("admin","5678");
     }
 
     @Test

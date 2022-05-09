@@ -32,5 +32,16 @@ with this link you can see the documentation: http://localhost:8081/swagger-ui/
 if you want change the port, you can change in application.properties.
 
 
+## Security
 
+This application has two users to access, there are:
+ - user 1:
+     user 
+     password: 1234
+ - user 2:
+     admin 
+     password: 5678
+
+Currently the only user that can permission to access is user 2 "admin", if you want change it, you can  
+modify the class "WebSecurityConfig" into the package "config".  
 
